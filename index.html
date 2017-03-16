@@ -1,23 +1,16 @@
-<html>
+<html ng-app="musicPlayerApp">
 <head>
-  <script type="text/javascript" src="music.js"></script>
+  <!-- <script type="text/javascript" src="music.js"></script> -->
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.min.js"></script>
+  <script type="text/javascript" src="app.js"></script>
+  <script type="text/javascript" src="app/player.component.js"></script>
+
   <link rel="stylesheet" href="css/style.css"/>
+
 </head>
 
 <body>
-  <audio id="music">
-    <source src="assets/02+Three+Little+Birds.mp3" type="audio/mpeg" />
-  </audio>
-  <div id="progress" class="progress-bar">
-    <div id="progress-click">
-      <div id="progress-bar">
-        <div id="progress-update"></div>
-      </div>
-    </div>
-  </div>
-  <div id="play" class="play-button" onclick="player.play()">
-  </div>
-
+  <music-player></music-player>
 </body>
 
 </html>

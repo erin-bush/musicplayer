@@ -37,6 +37,10 @@ var player = (function() {
   function timeUpdate() {
     var progressBar = document.getElementById('progress-update');
     var width = vm.progressWrapper.offsetWidth;
+    var currentTime = document.getElementById('time-value');
+
+    currentTime.innerHTML = music.currentTime;
+
     progressBar.style.width = Math.round(width * music.currentTime / music.duration);
   }
 

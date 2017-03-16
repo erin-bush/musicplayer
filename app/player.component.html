@@ -1,0 +1,13 @@
+<div id="progress" class="progress-bar">
+  <div id="progress-click">
+    <div id="progress-bar">
+      <div id="progress-update" ng-style="{width: player.progressBarWidth + 'px'}"></div>
+    </div>
+  </div>
+  <div id="time">
+    <div id="time-value">{{player.currentTime | secondsToDate | date:'mm:ss'}}</div>
+    <div id="time-duration">{{player.audio.duration | secondsToDate | date:'mm:ss'}}</div>
+  </div>
+</div>
+<div id="play" ng-class="{'play-button': player.audio.paused, 'pause-button': !player.audio.paused}" ng-click="player.play()">
+</div>
