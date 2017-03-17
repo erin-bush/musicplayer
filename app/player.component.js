@@ -9,7 +9,7 @@ angular.module('musicPlayerApp')
         song: '<',
         songEndedCallback: '<'
     },
-    controller: function ($document, $rootScope, $interval, $scope) {
+    controller: function ($document, $rootScope, $interval, $scope, $timeout) {
         var vm = this,
             promiseRewind,
             promiseFastforward;
@@ -51,14 +51,18 @@ angular.module('musicPlayerApp')
 
             vm.$onChanges = function (changes) {
                 initAudio();
-                vm.play();
+                if (changes.song.previousValue !== undefined){
+                    vm.play();
+                }
             };
         }
 
         function initAudio() {
-            vm.selectedSong = vm.song;
-            vm.audio.src = vm.selectedSong.src;
-            vm.currentTime = 0;
+            if (vm.song){
+                vm.selectedSong = vm.song;
+                vm.audio.src = vm.selectedSong.src;
+                vm.currentTime = 0;
+            }
         }
 
         function play() {
