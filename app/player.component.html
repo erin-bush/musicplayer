@@ -1,13 +1,24 @@
-<div id="progress" class="progress-bar">
-  <div id="progress-click">
-    <div id="progress-bar">
-      <div id="progress-update" ng-style="{width: player.progressBarWidth + 'px'}"></div>
+<div class="music-card">
+    <img ng-src="{{player.selectedSong.albumImg}}" class="album-img"/>
+    <div class="control-center">
+        <div id="progress" class="progress">
+            <div class="time time-value">{{player.currentTime | secondsToDate | date:'mm:ss'}}</div>
+            <div id="progress-click" ng-click="player.goToPosition($event)">
+                <div id="progress-bar">
+                    <div id="progress-update" ng-style="{width: player.progressBarWidth + 'px'}"></div>
+                </div>
+            </div>
+            <div class="time time-duration">{{player.audio.duration | secondsToDate | date:'HH:mm:ss'}}</div>
+        </div>
+        <div class="white-controls">
+            <div class="song-title">{{player.selectedSong.title}}</div>
+            <div class="song-info song-description">{{player.selectedSong.album}}</div>
+            <div class="song-info">{{player.selectedSong.artist}}</div>
+            <div class="controls">
+                <div id="rewind" class="control-button rewind" ng-mousedown='player.rewindMouseDown()' ng-mouseup="player.rewindMouseUp()"></div>
+                <div id="play" class="control-button" ng-class="{'play': player.audio.paused, 'pause': !player.audio.paused}" ng-click="player.play()"></div>
+                <div id="fastforward" class="control-button fastforward" ng-mousedown='player.fastforwardMouseDown()' ng-mouseup="player.fastforwardMouseUp()"></div>
+            </div>
+        </div>
     </div>
-  </div>
-  <div id="time">
-    <div id="time-value">{{player.currentTime | secondsToDate | date:'mm:ss'}}</div>
-    <div id="time-duration">{{player.audio.duration | secondsToDate | date:'mm:ss'}}</div>
-  </div>
-</div>
-<div id="play" ng-class="{'play-button': player.audio.paused, 'pause-button': !player.audio.paused}" ng-click="player.play()">
 </div>

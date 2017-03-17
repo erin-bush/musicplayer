@@ -5,15 +5,18 @@ angular.module('musicPlayerApp')
 {
     templateUrl: 'app/player.component.html',
     controllerAs: 'player',
-    controller: function ($document, $rootScope) {
-        var vm = this;
+    controller: function ($document, $rootScope, $interval) {
+        var vm = this,
+            promiseRewind,
+            promiseFastforward;
 
         vm.paused = false;
         vm.musicList = [
             {
-                name: 'Three Little Birds',
+                title: 'Three Little Birds',
+                artist: 'Bob Marley',
                 src: 'assets/02+Three+Little+Birds.mp3',
-                album: 'The Best of Bob Marley & the Wallers',
+                album: 'The Best of Bob Marley & the Wailers',
                 albumImg: 'assets/cover.jpg'
             }
         ];
@@ -21,6 +24,13 @@ angular.module('musicPlayerApp')
         vm.play = play;
         vm.changeSong = changeSong;
         vm.timeUpdate = timeUpdate;
+        vm.goToPosition = goToPosition;
+        vm.rewind = rewind;
+        vm.fastforward = fastforward;
+        vm.rewindMouseDown = rewindMouseDown;
+        vm.rewindMouseUp = rewindMouseUp;
+        vm.fastforwardMouseDown = fastforwardMouseDown;
+        vm.fastforwardMouseUp = fastforwardMouseUp;
 
         activate();
 
@@ -30,14 +40,18 @@ angular.module('musicPlayerApp')
 
             vm.audio.src = vm.selectedSong.src;
             vm.currentTime = 0;
-            console.log(vm.audio.duration);
+            var width = undefined;
 
             vm.audio.addEventListener('timeupdate', function () {
-                $rootScope.$apply(vm.timeUpdate);
+                $rootScope.$apply(function () {
+                    vm.timeUpdate(width);
+                });
             }, false);
 
             vm.audio.addEventListener('loadedmetadata', function () {
-                $rootScope.$apply(vm.timeUpdate);
+                $rootScope.$apply(function () {
+                    vm.timeUpdate(width);
+                });
             }, false);
 
         };
@@ -50,14 +64,72 @@ angular.module('musicPlayerApp')
             }
         };
 
-        function timeUpdate() {
+        function timeUpdate(progressWidth) {
+            //debugger;
+            var width = getProgressBarWidth();
+
             vm.currentTime = vm.audio.currentTime;
 
             //TODO: width not 200
-            vm.progressBarWidth =  Math.round(200 * vm.audio.currentTime / vm.audio.duration);
+            vm.progressBarWidth = progressWidth || Math.round(width * vm.audio.currentTime / vm.audio.duration);
         }
 
         function changeSong() {}
+
+        function goToPosition(event) {
+            console.log(event);
+            var position = event.offsetX;
+            var songPercent = position / getProgressBarWidth();
+            vm.audio.currentTime = vm.audio.duration * songPercent;
+            vm.timeUpdate(position);
+        }
+
+        function getProgressBarWidth(){
+            return document.getElementById("progress-bar").offsetWidth;
+        }
+
+        // scope.mouseDown = function() {
+        //   if(promise){
+        //      $interval.cancel(promise);
+        //   }
+        //   promise = $interval(function () {
+        //     scope.Time++;
+        //   }, 100);
+        //
+        // };
+        //
+        // scope.mouseUp = function () {
+        //    $interval.cancel(promise);
+        //    promise = null;
+        // };
+
+        function rewindMouseDown() {
+            if(promiseRewind){
+               $interval.cancel(promiseRewind);
+            }
+            promiseRewind = $interval(function () {
+               vm.audio.currentTime -= 5;
+               vm.timeUpdate();
+            }, 100);
+         }
+
+         function rewindMouseUp() {
+             $interval.cancel(promiseRewind);
+         }
+
+         function fastforwardMouseDown() {
+             if(promiseFastforward){
+                $interval.cancel(promiseFastforward);
+             }
+             promiseFastforward = $interval(function () {
+                vm.audio.currentTime += 5;
+                vm.timeUpdate();
+             }, 100);
+         }
+
+         function fastforwardMouseUp() {
+             $interval.cancel(promiseFastforward);
+         }
     }
 });
 
