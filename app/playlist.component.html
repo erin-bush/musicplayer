@@ -1,0 +1,20 @@
+<div class="align-center">
+    <div class="music-wrapper">
+        <music-player song="playlist.selectedSong" song-ended-callback="playlist.playNext"></music-player>
+    </div>
+    <div class="playlist-card">
+        <div class="playlist-title">Playlist</div>
+        <div class="song-list">
+            <div ng-repeat="item in playlist.musicList">
+                <div class="song-list-item" ng-click="playlist.selectSong(item, $index)" ng-class="{'selected': playlist.selectedSong.trackNumber === item.trackNumber}">
+                    <div class="song-number">{{item.trackNumber}}</div>
+                    <div class="song-list-info">
+                        <div class="song-title">{{item.title}}</div>
+                        <div class="song-artist">{{item.artist}}</div>
+                    </div>
+                    <div class="play-img"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

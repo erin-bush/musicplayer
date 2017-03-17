@@ -1,0 +1,18 @@
+[
+    {
+        "title": "Three Little Birds",
+        "artist": "Bob Marley",
+        "src": "assets/audio/Three+Little+Birds.mp3",
+        album: 'The Best of Bob Marley & the Wailers',
+        albumImg: 'assets/audio/bestof.jpg',
+        trackNumber: '01'
+    },
+    {
+        title: 'Chase The Devil',
+        artist: 'Max Romeo',
+        src: 'assets/audio/Chase+The+Devil.mp3',
+        album: 'War Ina Babylon',
+        albumImg: 'assets/audio/warina.jpg',
+        trackNumber: '02'
+    }
+]

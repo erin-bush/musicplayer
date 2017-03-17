@@ -5,21 +5,16 @@ angular.module('musicPlayerApp')
 {
     templateUrl: 'app/player.component.html',
     controllerAs: 'player',
-    controller: function ($document, $rootScope, $interval) {
+    bindings: {
+        song: '<',
+        songEndedCallback: '<'
+    },
+    controller: function ($document, $rootScope, $interval, $scope) {
         var vm = this,
             promiseRewind,
             promiseFastforward;
 
         vm.paused = false;
-        vm.musicList = [
-            {
-                title: 'Three Little Birds',
-                artist: 'Bob Marley',
-                src: 'assets/02+Three+Little+Birds.mp3',
-                album: 'The Best of Bob Marley & the Wailers',
-                albumImg: 'assets/cover.jpg'
-            }
-        ];
 
         vm.play = play;
         vm.changeSong = changeSong;
@@ -32,14 +27,10 @@ angular.module('musicPlayerApp')
         vm.fastforwardMouseDown = fastforwardMouseDown;
         vm.fastforwardMouseUp = fastforwardMouseUp;
 
-        activate();
-
-        function activate() {
-            vm.selectedSong = vm.musicList[0];
+        vm.$onInit = function() {
             vm.audio = $document[0].createElement('audio');
+            initAudio();
 
-            vm.audio.src = vm.selectedSong.src;
-            vm.currentTime = 0;
             var width = undefined;
 
             vm.audio.addEventListener('timeupdate', function () {
@@ -54,7 +45,21 @@ angular.module('musicPlayerApp')
                 });
             }, false);
 
-        };
+            vm.audio.addEventListener('ended', function () {
+                vm.songEndedCallback();
+            }, false);
+
+            vm.$onChanges = function (changes) {
+                initAudio();
+                vm.play();
+            };
+        }
+
+        function initAudio() {
+            vm.selectedSong = vm.song;
+            vm.audio.src = vm.selectedSong.src;
+            vm.currentTime = 0;
+        }
 
         function play() {
             if (vm.audio.paused) {
@@ -65,19 +70,15 @@ angular.module('musicPlayerApp')
         };
 
         function timeUpdate(progressWidth) {
-            //debugger;
             var width = getProgressBarWidth();
 
             vm.currentTime = vm.audio.currentTime;
-
-            //TODO: width not 200
             vm.progressBarWidth = progressWidth || Math.round(width * vm.audio.currentTime / vm.audio.duration);
         }
 
         function changeSong() {}
 
         function goToPosition(event) {
-            console.log(event);
             var position = event.offsetX;
             var songPercent = position / getProgressBarWidth();
             vm.audio.currentTime = vm.audio.duration * songPercent;
@@ -87,21 +88,6 @@ angular.module('musicPlayerApp')
         function getProgressBarWidth(){
             return document.getElementById("progress-bar").offsetWidth;
         }
-
-        // scope.mouseDown = function() {
-        //   if(promise){
-        //      $interval.cancel(promise);
-        //   }
-        //   promise = $interval(function () {
-        //     scope.Time++;
-        //   }, 100);
-        //
-        // };
-        //
-        // scope.mouseUp = function () {
-        //    $interval.cancel(promise);
-        //    promise = null;
-        // };
 
         function rewindMouseDown() {
             if(promiseRewind){
