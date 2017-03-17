@@ -36,5 +36,5 @@ The application was written using the AngularJS 1.6 framework.  It can be deploy
 * Clicking the progress bar will advance or reverse the song to that location
 * Refreshing the page restarts the playlist
 
-###Limitations
+### Limitations
 I did not have time to implement fast forward and rewind for touch screens - so this feature does not work on mobile
