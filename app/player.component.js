@@ -1,3 +1,17 @@
+/*
+ * player.component.js
+ * Author: Erin Bush
+ * Created: March 16, 2016
+ *
+ * This file contains the player component. The song that was selected from the playlist
+ * is passed into the component and is loaded as an audio element.  This component
+ * controls the play, pause, fastforward, and rewind controls - as well as the ability
+ * to click on the progress bar and go to that location in the song.
+ *
+ * When the song has ended, callback function passed in from the playlist component is called
+ *
+ */
+
 (function () {
 
 angular.module('musicPlayerApp')
@@ -122,6 +136,14 @@ angular.module('musicPlayerApp')
          }
     }
 });
+
+/*
+ * secondsToDate Filter
+ *
+ * This filter is used to convert seconds to a date object to be formatted as HH:mm:ss
+ * Based off of the answer given on this StackOverflow thread: http://stackoverflow.com/a/28401099
+ *
+ */
 
 angular.module('musicPlayerApp')
        .filter('secondsToDate', [function() {

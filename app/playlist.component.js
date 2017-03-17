@@ -1,3 +1,12 @@
+/*
+ * playlist.component.js
+ * Author: Erin Bush
+ * Created: March 16, 2017
+ *
+ * This file contains the playlist component which controls song selection from a list of songs
+ * defined in data/playlist.json
+ */
+
 (function () {
 
 angular.module('musicPlayerApp')

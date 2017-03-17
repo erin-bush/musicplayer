@@ -1,3 +1,13 @@
+/*
+ * style.css
+ * Author: Erin Bush
+ * Created: March 14, 2017
+ *
+ * This file contains the styles for the entire music player app
+ *
+ */
+
+
 body {
     background-color: #4c5365;
     font-family: Arial, Helvetica, sans-serif;
@@ -28,15 +38,15 @@ body {
 }
 
 .play {
-  background: url('../assets/btn-play.png') no-repeat;
-  background-size: 50% 50%;
-  background-position: center;
+    background: url('../assets/btn-play.png') no-repeat;
+    background-size: 50% 50%;
+    background-position: center;
 }
 
 .pause {
-  background: url('../assets/btn-pause.png') no-repeat;
-  background-size: 50% 50%;
-  background-position: center;
+    background: url('../assets/btn-pause.png') no-repeat;
+    background-size: 50% 50%;
+    background-position: center;
 }
 
 .progress{
@@ -47,16 +57,16 @@ body {
 }
 
 #progress-bar {
-  width: 100%;
-  background-color: #ffffff;
-  height: 4px;
-  display: inline-block;
-  margin-top: 8px;
+    width: 100%;
+    background-color: #ffffff;
+    height: 4px;
+    display: inline-block;
+    margin-top: 8px;
 }
 
 #progress-update{
-  background: #6bbeb9;
-  height: 4px;
+    background: #6bbeb9;
+    height: 4px;
 }
 
 .align-center {
@@ -218,10 +228,10 @@ body {
 }
 
 .title-bar{
-  text-align: right;
-  padding-top: 40px;
-  margin-bottom: 150px;
-  position: relative;
+    text-align: right;
+    padding-top: 40px;
+    margin-bottom: 150px;
+    position: relative;
 }
 
 .title-img{
@@ -259,4 +269,25 @@ body {
     transform: skewX(-20deg);
     background-color: #fed587;
     z-index: 0;
+}
+
+.icon-license {
+    text-align: right;
+    font-size: 12px;
+    color: #b7b7b7;
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+}
+
+@media(max-width: 885px){
+    .icon-license {
+        position: relative;
+        margin: 75px 25px 25px;
+    }
+}
+
+.icon-license a, .icon-license a:hover {
+    color: #eeeeee;
+    text-decoration: none;
 }

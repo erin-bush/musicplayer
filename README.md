@@ -1,7 +1,7 @@
 # Groove - An online music player
 
 ## Running Locally
-To run locally, from the root folder on the command line:
+To run locally, you must have Node and Grunt installed. From the root folder on the command line:
 1. run `npm install`
 2. run `grunt`
 
